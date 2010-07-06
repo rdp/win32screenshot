@@ -19,7 +19,7 @@ describe "win32-screenshot" do
   end
   
   after :all do
-    cleanup
+    cleanup unless $DEBUG
   end
 
   it "captures foreground" do

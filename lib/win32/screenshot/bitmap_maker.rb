@@ -126,7 +126,7 @@ module Win32
         x1, y1, x2, y2 = dimensions_for(hwnd)
         capture_area(hwnd, x1, y1, x2, y2, &proc)
       end
-
+      
       SRCCOPY = 0x00CC0020
       DIB_RGB_COLORS = 0
 
@@ -157,6 +157,9 @@ module Win32
 
         bmp_data = bmFileHeader + bmInfo + lpvpxldata.read_string(bitmap_size)
         proc.call(w, h, bmp_data)
+      rescue Exception => e
+        puts e, e.backtrace
+        throw e
       ensure
         lpvpxldata.free
         delete_object(hmemBM)

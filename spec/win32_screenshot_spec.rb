@@ -89,6 +89,14 @@ describe "win32-screenshot" do
       height.should == 120
     end
   end
+  
+  it "captures absolute coordinates" do
+    Win32::Screenshot.capture_area(0, 0, 100, 150) do |width, height, bmp|
+      check_image(bmp, 'capture_area')
+      width.should == 100
+      height.should == 150
+    end      
+  end
 
   it "captures whole window if window size is specified as coordinates" do
     title = /calculator/i

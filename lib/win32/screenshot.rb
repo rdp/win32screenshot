@@ -33,7 +33,11 @@ module Win32
         BitmapMaker.prepare_window(hwnd, pause)
         BitmapMaker.capture_area(hwnd, x1, y1, x2, y2, &proc)
       end
-
+      
+      def capture_area(x1, y1, x2, y2, &proc)
+        BitmapMaker.capture_area(0, x1, y1, x2, y2, &proc)
+      end
+        
       # captures by window handle
       def hwnd(hwnd, pause=0.5, &proc)
         BitmapMaker.prepare_window(hwnd, pause)

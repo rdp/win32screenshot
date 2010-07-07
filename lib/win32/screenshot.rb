@@ -34,8 +34,9 @@ module Win32
         BitmapMaker.capture_area(hwnd, x1, y1, x2, y2, &proc)
       end
       
-      def capture_area(x1, y1, x2, y2, &proc)
-        BitmapMaker.capture_area(0, x1, y1, x2, y2, &proc)
+      def desktop_area(x1, y1, x2, y2, &proc)
+        hwnd = BitmapMaker.desktop_window
+        BitmapMaker.capture_area(hwnd, x1, y1, x2, y2, &proc)
       end
         
       # captures by window handle

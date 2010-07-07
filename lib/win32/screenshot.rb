@@ -36,6 +36,7 @@ module Win32
       
       def desktop_area(x1, y1, x2, y2, &proc)
         hwnd = BitmapMaker.desktop_window
+        validate_coordinates(hwnd, x1, y1, x2, y2)
         BitmapMaker.capture_area(hwnd, x1, y1, x2, y2, &proc)
       end
         

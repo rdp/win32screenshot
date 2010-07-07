@@ -7,7 +7,6 @@ describe "win32-screenshot" do
     FileUtils.rm Dir.glob("*.bmp")
     FileUtils.rm Dir.glob("*.png")
   end    
-    
   
   before :all do
     cleanup
@@ -132,6 +131,16 @@ describe "win32-screenshot" do
     lambda {Win32::Screenshot.window_area(title, 0, 0, 10, 10000) {|width, height, bmp| check_image('calc3')}}.
             should raise_exception("specified coordinates (0, 0, 10, 10000) are invalid!")
   end
+  
+  it "doesn't allow to capture absolute coordinates that are too big" do
+    lambda {Win32::Screenshot.desktop_area(0, 0, 1_000_000, 1_000_000) do |width, height, bmp|; end }.
+            should raise_exception("specified coordinates (0, 0, 1000000, 1000000) are invalid!")
+  end  
+
+  it "doesn't allow to capture absolute coordinates that are too negative" do
+    lambda {Win32::Screenshot.desktop_area(-1, -1, 1, 1) do |width, height, bmp|; end }.
+    should raise_exception("specified coordinates (-1, -1, 1, 1) are invalid!")
+  end  
 
   it "captures by hwnd" do
     title = /calculator/i
@@ -146,7 +155,8 @@ describe "win32-screenshot" do
 
   after :all do
     Process.kill 9, @notepad
-    Process.kill 9, @iexplore
+    Process.kill 9, @iexplore rescue nil # can't kill it if IE was previously running as it will already be dead
+    # because it just calls into the existing IE, tells it to open the new window, then exits (already)
     Process.kill 9, @calc
   end
 end

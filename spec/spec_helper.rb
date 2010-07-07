@@ -39,7 +39,7 @@ module SpecHelper
       sleep 0.1
     end
     # just in case of slow PC
-    sleep 10
+    sleep 2
   end
 
   def maximize title

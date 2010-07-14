@@ -7,7 +7,7 @@ require 'os'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "win32screenshot"
+    gem.name = "rdp-win32screenshot"
     gem.summary = %Q{Capture Screenshots on Windows with Ruby}
     gem.description = %Q{Capture Screenshots on Windows with Ruby}
     gem.email = ["jarmo.p@gmail.com", "aslak.hellesoy@gmail.com"]
